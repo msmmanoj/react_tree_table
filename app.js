@@ -42,10 +42,14 @@ class App extends React.Component {
         return axios.get('http://localhost:3000/' + parentId)
             .then(response => {
                 var xmlValue = response.data;
-                var childRows = this.convertXMLToJson(xmlValue, false);
-                const tableData = JSON.parse(JSON.stringify(this.state.tableData));
-                this.appendChildRowsToTable(tableData, childRows, parentId);
-                this.changeShowValue(parentId, tableData);
+                if (xmlValue === '') {
+                    alert("This folder doesnt have any child folders");
+                } else {
+                    var childRows = this.convertXMLToJson(xmlValue, false);
+                    const tableData = JSON.parse(JSON.stringify(this.state.tableData));
+                    this.appendChildRowsToTable(tableData, childRows, parentId);
+                    this.changeShowValue(parentId, tableData);
+                }
             })
             .catch((err) => {
                 alert("Unable to retrieve data from backend");
