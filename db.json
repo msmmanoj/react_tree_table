@@ -1,0 +1,22 @@
+//{
+//  "posts": [
+//    {
+//      "id": 1,
+//      "title": "manoj1",
+//      "author": "typicode"
+//    },
+//    {
+//      "id": 2,
+//      "title": "manoj2",
+//      "author": "typicode"
+//    }
+//  ]
+//},
+
+{
+"parent_id": [
+  {
+
+  }
+]
+}
