@@ -47,8 +47,8 @@ class App extends React.Component {
                 } else {
                     var childRows = this.convertXMLToJson(xmlValue, false);
                     const tableData = JSON.parse(JSON.stringify(this.state.tableData));
-                    this.appendChildRowsToTable(tableData, childRows, parentId);
-                    this.changeShowValue(parentId, tableData);
+                    const refactoredTableData = this.appendChildRowsToTable(tableData, childRows, parentId);
+                    this.changeShowValue(parentId, refactoredTableData);
                 }
             })
             .catch((err) => {
@@ -160,6 +160,7 @@ class App extends React.Component {
                 this.appendChildRowsToTable(row.children, childRows, parentId);
             }
         })
+        return tableData;
     }
 
 
@@ -208,12 +209,10 @@ class TreeTable extends React.Component {
     Convert multilevel table data to single level.
      */
     static generateSingleLevelRows = (data, rows) => {
-        data.forEach(row => {
-            const data = {...row};
-            delete data.children
-            rows.push(data)
-            if (row.children.length !== 0) {
-                TreeTable.generateSingleLevelRows(row.children, rows);
+        data.forEach(({children, ...item}) => {
+            rows.push(item)
+            if (children.length !== 0) {
+                TreeTable.generateSingleLevelRows(children, rows);
             }
         })
     }
